@@ -1,0 +1,31 @@
+{
+  "name": "orbit-notes",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A revolutionary local-first notes app combining the best of Obsidian, Notion, and Superlist",
+  "keywords": ["notes", "local-first", "crdt", "pwa", "markdown", "knowledge-management"],
+  "author": "ORBIT Notes Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev --parallel",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "test:e2e": "turbo test:e2e",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "clean": "turbo clean && rm -rf node_modules",
+    "typecheck": "turbo typecheck"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^1.11.0",
+    "prettier": "^3.1.1",
+    "turbo": "^1.11.0",
+    "typescript": "^5.3.3"
+  }
+}

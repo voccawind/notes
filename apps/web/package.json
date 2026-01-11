@@ -1,0 +1,53 @@
+{
+  "name": "@orbit/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@tiptap/react": "^2.1.13",
+    "@tiptap/starter-kit": "^2.1.13",
+    "@tiptap/extension-link": "^2.1.13",
+    "@tiptap/extension-task-list": "^2.1.13",
+    "@tiptap/extension-task-item": "^2.1.13",
+    "yjs": "^13.6.10",
+    "y-prosemirror": "^1.2.5",
+    "y-indexeddb": "^9.0.12",
+    "dexie": "^3.2.4",
+    "dexie-react-hooks": "^1.1.7",
+    "zustand": "^4.4.7",
+    "fuse.js": "^7.0.0",
+    "date-fns": "^3.0.6",
+    "clsx": "^2.0.0",
+    "@orbit/shared-types": "workspace:*",
+    "@orbit/sync-engine": "workspace:*",
+    "@orbit/crypto": "workspace:*",
+    "@orbit/markdown-parser": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/ui": "^1.0.4",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vite-plugin-pwa": "^0.17.4",
+    "vitest": "^1.0.4",
+    "happy-dom": "^12.10.3"
+  }
+}
