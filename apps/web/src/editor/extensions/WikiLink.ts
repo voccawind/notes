@@ -90,14 +90,14 @@ export const WikiLink = Mark.create<WikiLinkOptions>({
   },
 
   addProseMirrorPlugins() {
-    const { onLinkClick, onLinkHover } = this.options
+    const { onLinkClick } = this.options
 
     return [
       // Auto-convert [[text]] to wiki links
       new Plugin({
         key: new PluginKey('wikiLinkAutodetect'),
         props: {
-          handleTextInput: (view, from, to, text) => {
+          handleTextInput: (view, from, _to, text) => {
             if (text === ']') {
               const { state } = view
               const { doc, tr } = state
@@ -128,7 +128,7 @@ export const WikiLink = Mark.create<WikiLinkOptions>({
 
           // Add decorations for in-progress wiki links
           decorations: (state) => {
-            const { doc, selection } = state
+            const { doc } = state
             const decorations: Decoration[] = []
 
             // Find [[... patterns that haven't been closed yet

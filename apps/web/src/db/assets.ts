@@ -33,7 +33,7 @@ export async function createAsset(data: CreateAssetData): Promise<Asset> {
   const asset: Asset = {
     id: crypto.randomUUID(),
     orbitId: data.orbitId,
-    noteId: data.noteId || null,
+    noteId: data.noteId,
     filename: data.file.name,
     mimeType: data.file.type,
     sizeBytes: data.file.size,
@@ -88,7 +88,7 @@ export async function attachAssetToNote(assetId: UUID, noteId: UUID): Promise<vo
 }
 
 export async function detachAssetFromNote(assetId: UUID): Promise<void> {
-  await updateAsset(assetId, { noteId: null })
+  await updateAsset(assetId, { noteId: undefined })
 }
 
 // ====================

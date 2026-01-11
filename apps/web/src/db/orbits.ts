@@ -1,6 +1,6 @@
 // Orbit CRUD Operations
 import { db } from './schema'
-import type { Orbit, UUID, SyncProviderType } from '@orbit/shared-types'
+import type { Orbit, UUID, SyncProvider } from '@orbit/shared-types'
 
 // ====================
 // Create
@@ -8,8 +8,8 @@ import type { Orbit, UUID, SyncProviderType } from '@orbit/shared-types'
 
 export async function createOrbit(data: {
   name: string
-  syncProvider?: SyncProviderType
-  syncConfig?: Record<string, unknown> | null
+  syncProvider?: SyncProvider
+  syncConfig?: Record<string, unknown>
   encryptionEnabled?: boolean
 }): Promise<Orbit> {
   const orbit: Orbit = {
@@ -17,10 +17,8 @@ export async function createOrbit(data: {
     name: data.name,
     createdAt: Date.now(),
     syncProvider: data.syncProvider || 'local',
-    syncConfig: data.syncConfig || null,
+    syncConfig: data.syncConfig || {},
     encryptionEnabled: data.encryptionEnabled || false,
-    encryptionKey: null,
-    lastSyncAt: null,
   }
 
   await db.orbits.add(orbit)
@@ -74,8 +72,8 @@ export async function updateOrbit(
 
 export async function setOrbitSyncProvider(
   id: UUID,
-  provider: SyncProviderType,
-  config: Record<string, unknown> | null
+  provider: SyncProvider,
+  config: Record<string, unknown>
 ): Promise<void> {
   await updateOrbit(id, {
     syncProvider: provider,
@@ -96,7 +94,7 @@ export async function enableOrbitEncryption(
 export async function disableOrbitEncryption(id: UUID): Promise<void> {
   await updateOrbit(id, {
     encryptionEnabled: false,
-    encryptionKey: null,
+    encryptionKey: undefined,
   })
 }
 

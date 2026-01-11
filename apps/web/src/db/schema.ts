@@ -7,7 +7,6 @@ import type {
   Link,
   Asset,
   SyncLog,
-  PropertyValue,
 } from '@orbit/shared-types'
 
 // ====================
@@ -109,10 +108,8 @@ async function createDefaultOrbit(): Promise<Orbit> {
     name: 'Personal',
     createdAt: Date.now(),
     syncProvider: 'local',
-    syncConfig: null,
+    syncConfig: {},
     encryptionEnabled: false,
-    encryptionKey: null,
-    lastSyncAt: null,
   }
 
   await db.orbits.add(defaultOrbit)

@@ -1,0 +1,347 @@
+/* CommandDock Styles */
+
+.command-dock-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--spacing-md);
+  background: var(--bg-primary);
+}
+
+/* ==================== */
+/* Command Modals       */
+/* ==================== */
+
+.command-modal {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-bottom: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.2s ease;
+  z-index: 100;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.capture-modal {
+  padding: var(--spacing-md);
+}
+
+.jump-modal {
+  max-height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==================== */
+/* Modal Inputs         */
+/* ==================== */
+
+.capture-input,
+.jump-input {
+  width: 100%;
+  padding: var(--spacing-md);
+  font-size: 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.capture-input:focus,
+.jump-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.capture-input::placeholder,
+.jump-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ==================== */
+/* Jump Results         */
+/* ==================== */
+
+.jump-results {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border-light);
+}
+
+.jump-result {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.jump-result:last-child {
+  border-bottom: none;
+}
+
+.jump-result button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-md);
+  text-align: left;
+  transition: background var(--transition-fast);
+}
+
+.jump-result button:hover {
+  background: var(--bg-hover);
+}
+
+.result-title {
+  flex: 1;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.result-tags {
+  font-size: 0.875rem;
+  color: var(--accent-success);
+  margin-left: var(--spacing-md);
+}
+
+/* ==================== */
+/* Command Buttons      */
+/* ==================== */
+
+.command-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+}
+
+.command-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  color: var(--text-primary);
+}
+
+.command-button:hover:not(:disabled) {
+  background: var(--bg-hover);
+}
+
+.command-button.active {
+  background: var(--bg-active);
+  color: var(--text-inverse);
+}
+
+.command-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.command-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.command-label {
+  white-space: nowrap;
+}
+
+/* ==================== */
+/* Compose Menu         */
+/* ==================== */
+
+.command-compose {
+  position: relative;
+}
+
+.compose-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: var(--spacing-sm);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xs);
+  display: none;
+  min-width: 150px;
+  z-index: 10;
+}
+
+.command-compose:hover .compose-menu,
+.command-compose:focus-within .compose-menu {
+  display: block;
+}
+
+.compose-menu button {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: left;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  transition: background var(--transition-fast);
+}
+
+.compose-menu button:hover {
+  background: var(--bg-hover);
+}
+
+/* ==================== */
+/* Sync Icon Animation  */
+/* ==================== */
+
+.sync-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.command-button:hover .sync-icon {
+  transform: rotate(180deg);
+}
+
+.sync-icon.spinning {
+  animation: spinSync 1s linear infinite;
+}
+
+@keyframes spinSync {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================== */
+/* Status Bar           */
+/* ==================== */
+
+.command-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.status-ready {
+  color: var(--accent-success);
+  font-weight: 500;
+}
+
+.status-no-orbit {
+  color: var(--text-muted);
+}
+
+/* ==================== */
+/* Sync Status          */
+/* ==================== */
+
+.sync-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.sync-status.syncing {
+  color: var(--accent-primary);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.sync-status.synced {
+  color: var(--accent-success);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.sync-status.conflict {
+  color: var(--accent-warning);
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.sync-status.offline {
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+}
+
+/* ==================== */
+/* Responsive Design    */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .command-label {
+    display: none;
+  }
+
+  .command-button {
+    padding: var(--spacing-sm);
+  }
+
+  .command-icon {
+    font-size: 1.5rem;
+  }
+
+  .command-modal {
+    max-height: 60vh;
+  }
+}
+
+/* ==================== */
+/* Keyboard Hints       */
+/* ==================== */
+
+.command-button[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--bg-active);
+  color: var(--text-inverse);
+  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeIn 0.2s ease forwards;
+  z-index: 1000;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

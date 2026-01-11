@@ -85,7 +85,7 @@ export const Tag = Mark.create<TagOptions>({
       new Plugin({
         key: new PluginKey('tagAutodetect'),
         props: {
-          handleTextInput: (view, from, to, text) => {
+          handleTextInput: (view, from, _to, text) => {
             // Trigger on space, newline, or punctuation after tag
             if (text === ' ' || text === '\n' || text === ',' || text === '.') {
               const { state } = view

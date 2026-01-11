@@ -1,6 +1,6 @@
 // NoteEditor - Integration of BlockEditor with Database
 import React, { useEffect, useState, useCallback } from 'react'
-import { BlockEditor, Toolbar, getEditorText } from './index'
+import { BlockEditor, Toolbar } from './index'
 import { getNoteWithYjs, updateNoteContent } from '../db'
 import type { Note, UUID } from '@orbit/shared-types'
 import type { Editor as TiptapEditor } from '@tiptap/react'
@@ -66,7 +66,7 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({
 
   // Auto-save handler
   const saveNote = useCallback(
-    async (currentEditor: TiptapEditor) => {
+    async (_currentEditor: TiptapEditor) => {
       if (!ydoc || !autoSave || readOnly) return
 
       try {
@@ -75,9 +75,8 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({
         // Update note content in database
         await updateNoteContent(noteId, ydoc)
 
-        // Extract plain text for search
-        const contentText = getEditorText(currentEditor)
-        await updateNoteContent(noteId, ydoc)
+        // Extract plain text for search (TODO: update contentText field)
+        // const contentText = getEditorText(currentEditor)
 
         setLastSaved(new Date())
 

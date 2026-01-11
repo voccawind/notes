@@ -1,0 +1,115 @@
+/* Canvas Styles */
+
+.canvas-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.canvas-tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+  overflow-x: auto;
+}
+
+.tab-list {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex: 1;
+  overflow-x: auto;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: var(--bg-tertiary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tab:hover {
+  background: var(--bg-hover);
+}
+
+.tab.active {
+  background: var(--bg-primary);
+  border-bottom: 2px solid var(--accent-primary);
+}
+
+.tab-title {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.875rem;
+}
+
+.tab-close {
+  padding: 2px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+  opacity: 0.6;
+  transition: all var(--transition-fast);
+}
+
+.tab-close:hover {
+  opacity: 1;
+  background: var(--bg-hover);
+}
+
+.tab-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.tab-action {
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  transition: background var(--transition-fast);
+}
+
+.tab-action:hover {
+  background: var(--bg-hover);
+}
+
+.canvas-editor {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg-primary);
+}
+
+.canvas-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.empty-state h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.empty-state p {
+  color: var(--text-muted);
+}
+
+.canvas-no-selection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-muted);
+}

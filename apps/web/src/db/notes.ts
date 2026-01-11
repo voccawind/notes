@@ -1,6 +1,6 @@
 // Note CRUD Operations with Yjs Integration
 import { db } from './schema'
-import type { Note, UUID, Block, PropertyValue } from '@orbit/shared-types'
+import type { Note, UUID, PropertyValue } from '@orbit/shared-types'
 import * as Y from 'yjs'
 import { extractLinks, extractTags } from '@orbit/markdown-parser'
 
@@ -42,7 +42,6 @@ export async function createNote(data: CreateNoteData): Promise<Note> {
     contentText: contentText, // For full-text search
     createdAt: now,
     modifiedAt: now,
-    deletedAt: null,
     properties: data.properties || {},
     tags,
     linkedNoteIds: [], // Will be populated by createLinks
