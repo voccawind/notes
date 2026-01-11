@@ -26,6 +26,16 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
   const [focusRailCollapsed, setFocusRailCollapsed] = useState(false)
   const [activeNoteId, setActiveNoteId] = useState<UUID | null>(null)
   const [openTabs, setOpenTabs] = useState<UUID[]>([])
+  const [captureOpen, setCaptureOpen] = useState(false)
+  const [jumpOpen, setJumpOpen] = useState(false)
+
+  // Keyboard shortcuts
+  useWorkspaceKeyboard({
+    onCapture: () => setCaptureOpen(true),
+    onJump: () => setJumpOpen(true),
+    onToggleOrbitBar: () => setOrbitBarCollapsed(!orbitBarCollapsed),
+    onToggleFocusRail: () => setFocusRailCollapsed(!focusRailCollapsed),
+  })
 
   const handleNoteOpen = (noteId: UUID) => {
     setActiveNoteId(noteId)
@@ -104,6 +114,10 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
         <CommandDock
           orbitId={activeOrbitId}
           onNoteOpen={handleNoteOpen}
+          captureOpen={captureOpen}
+          jumpOpen={jumpOpen}
+          onCaptureOpenChange={setCaptureOpen}
+          onJumpOpenChange={setJumpOpen}
         />
       </footer>
     </div>

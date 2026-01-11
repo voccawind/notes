@@ -1,5 +1,5 @@
 // CommandDock - Bottom Bar (Capture / Jump / Compose / Sync)
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { createNote, searchNotes, createDailyNote } from '../../db'
 import type { UUID } from '@orbit/shared-types'
 import './CommandDock.css'
@@ -7,17 +7,66 @@ import './CommandDock.css'
 export interface CommandDockProps {
   orbitId: UUID | null
   onNoteOpen?: (noteId: UUID) => void
+  // Controlled modal props (optional)
+  captureOpen?: boolean
+  jumpOpen?: boolean
+  onCaptureOpenChange?: (open: boolean) => void
+  onJumpOpenChange?: (open: boolean) => void
 }
 
 export const CommandDock: React.FC<CommandDockProps> = ({
   orbitId,
   onNoteOpen,
+  captureOpen: controlledCaptureOpen,
+  jumpOpen: controlledJumpOpen,
+  onCaptureOpenChange,
+  onJumpOpenChange,
 }) => {
-  const [captureOpen, setCaptureOpen] = useState(false)
-  const [jumpOpen, setJumpOpen] = useState(false)
+  // Internal state (used when not controlled)
+  const [internalCaptureOpen, setInternalCaptureOpen] = useState(false)
+  const [internalJumpOpen, setInternalJumpOpen] = useState(false)
+
+  // Use controlled state if provided, otherwise use internal state
+  const captureOpen = controlledCaptureOpen !== undefined ? controlledCaptureOpen : internalCaptureOpen
+  const jumpOpen = controlledJumpOpen !== undefined ? controlledJumpOpen : internalJumpOpen
+
+  const setCaptureOpen = (open: boolean) => {
+    if (onCaptureOpenChange) {
+      onCaptureOpenChange(open)
+    } else {
+      setInternalCaptureOpen(open)
+    }
+  }
+
+  const setJumpOpen = (open: boolean) => {
+    if (onJumpOpenChange) {
+      onJumpOpenChange(open)
+    } else {
+      setInternalJumpOpen(open)
+    }
+  }
   const [captureText, setCaptureText] = useState('')
   const [jumpQuery, setJumpQuery] = useState('')
   const [jumpResults, setJumpResults] = useState<any[]>([])
+
+  // Debounced search effect for Jump
+  useEffect(() => {
+    if (!orbitId || !jumpQuery.trim() || !jumpOpen) {
+      setJumpResults([])
+      return
+    }
+
+    const searchTimeout = setTimeout(async () => {
+      try {
+        const results = await searchNotes(orbitId, jumpQuery)
+        setJumpResults(results)
+      } catch (error) {
+        console.error('Failed to search notes:', error)
+      }
+    }, 300) // 300ms debounce delay
+
+    return () => clearTimeout(searchTimeout)
+  }, [jumpQuery, orbitId, jumpOpen])
 
   // Capture: Quick Note
   const handleCapture = async () => {
@@ -38,18 +87,6 @@ export const CommandDock: React.FC<CommandDockProps> = ({
       }
     } catch (error) {
       console.error('Failed to create note:', error)
-    }
-  }
-
-  // Jump: Search
-  const handleJump = async () => {
-    if (!orbitId || !jumpQuery.trim()) return
-
-    try {
-      const results = await searchNotes(orbitId, jumpQuery)
-      setJumpResults(results)
-    } catch (error) {
-      console.error('Failed to search:', error)
     }
   }
 
@@ -94,6 +131,7 @@ export const CommandDock: React.FC<CommandDockProps> = ({
                 handleCapture()
               } else if (e.key === 'Escape') {
                 setCaptureOpen(false)
+                setCaptureText('')
               }
             }}
             autoFocus
@@ -111,13 +149,18 @@ export const CommandDock: React.FC<CommandDockProps> = ({
             value={jumpQuery}
             onChange={(e) => {
               setJumpQuery(e.target.value)
-              // Debounce search in real implementation
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                handleJump()
+                // Open first result on Enter
+                if (jumpResults.length > 0) {
+                  onNoteOpen?.(jumpResults[0].id)
+                  setJumpOpen(false)
+                  setJumpQuery('')
+                }
               } else if (e.key === 'Escape') {
                 setJumpOpen(false)
+                setJumpQuery('')
               }
             }}
             autoFocus

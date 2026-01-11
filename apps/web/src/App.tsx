@@ -1,34 +1,66 @@
-import './App.css'
+// ORBIT Notes - Main Application
+import { useEffect, useState } from 'react'
+import { WorkspaceLayout } from './components'
+import { db, getAllOrbits } from './db'
+import type { UUID } from '@orbit/shared-types'
+import './components/layout.css'
 
 function App() {
-  return (
-    <div className="app">
-      <header className="app-header">
-        <h1>ORBIT Notes</h1>
-        <p>Local-first notes with powerful linking and sync</p>
-      </header>
-      <main className="app-main">
-        <p>Welcome to ORBIT Notes - Coming Soon!</p>
-        <div className="features">
-          <div className="feature">
-            <h3>🏠 Local-First</h3>
-            <p>Works completely offline</p>
-          </div>
-          <div className="feature">
-            <h3>🔗 Powerful Linking</h3>
-            <p>Connect your ideas</p>
-          </div>
-          <div className="feature">
-            <h3>⚡ Fast & Snappy</h3>
-            <p>Search in &lt;50ms</p>
-          </div>
-          <div className="feature">
-            <h3>🔒 Privacy First</h3>
-            <p>Your data, your control</p>
-          </div>
+  const [activeOrbitId, setActiveOrbitId] = useState<UUID | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  // Initialize: Load or create default orbit
+  useEffect(() => {
+    async function initialize() {
+      try {
+        // Ensure database is ready
+        await db.open()
+
+        // Get all orbits
+        const orbits = await getAllOrbits()
+
+        // Use first orbit or wait for creation
+        if (orbits.length > 0) {
+          setActiveOrbitId(orbits[0].id)
+        }
+      } catch (error) {
+        console.error('Failed to initialize app:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    initialize()
+  }, [])
+
+  // Handle orbit switching
+  const handleOrbitSwitch = (orbitId: UUID) => {
+    setActiveOrbitId(orbitId)
+  }
+
+  if (loading) {
+    return (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        fontSize: '1.5rem',
+        color: 'var(--text-secondary)'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div className="spinner" style={{ margin: '0 auto 1rem' }}></div>
+          Loading ORBIT Notes...
         </div>
-      </main>
-    </div>
+      </div>
+    )
+  }
+
+  return (
+    <WorkspaceLayout
+      activeOrbitId={activeOrbitId}
+      onOrbitSwitch={handleOrbitSwitch}
+    />
   )
 }
 
