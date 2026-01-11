@@ -127,7 +127,7 @@ describe('Orbit CRUD Operations', () => {
 
       const updated = await getOrbit(orbit.id)
       expect(updated?.encryptionEnabled).toBe(false)
-      expect(updated?.encryptionKey).toBeNull()
+      expect(updated?.encryptionKey).toBeUndefined()
     })
 
     it('should set sync provider', async () => {
