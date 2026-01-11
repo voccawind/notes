@@ -1,0 +1,452 @@
+/* ORBIT Notes Editor Styles */
+
+/* ==================== */
+/* Editor Wrapper       */
+/* ==================== */
+
+.block-editor-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+}
+
+.block-editor {
+  width: 100%;
+  max-width: 100%;
+  padding: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary, #1a1a1a);
+  background: var(--bg-primary, #ffffff);
+  outline: none;
+}
+
+/* Placeholder */
+.block-editor .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--text-muted, #999);
+  pointer-events: none;
+  height: 0;
+}
+
+/* ==================== */
+/* Typography           */
+/* ==================== */
+
+.block-editor h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin: 1em 0 0.5em;
+  line-height: 1.2;
+}
+
+.block-editor h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0.8em 0 0.4em;
+  line-height: 1.3;
+}
+
+.block-editor h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin: 0.6em 0 0.3em;
+  line-height: 1.4;
+}
+
+.block-editor h4,
+.block-editor h5,
+.block-editor h6 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0.5em 0 0.25em;
+  line-height: 1.4;
+}
+
+.block-editor p {
+  margin: 0.5em 0;
+}
+
+/* ==================== */
+/* Text Formatting      */
+/* ==================== */
+
+.block-editor strong {
+  font-weight: 600;
+}
+
+.block-editor em {
+  font-style: italic;
+}
+
+.block-editor s {
+  text-decoration: line-through;
+}
+
+.block-editor code {
+  background: var(--bg-code, #f5f5f5);
+  border-radius: 3px;
+  padding: 0.1em 0.3em;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New',
+    monospace;
+  font-size: 0.9em;
+  color: var(--text-code, #c7254e);
+}
+
+/* ==================== */
+/* Lists                */
+/* ==================== */
+
+.block-editor ul,
+.block-editor ol {
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.block-editor ul {
+  list-style-type: disc;
+}
+
+.block-editor ol {
+  list-style-type: decimal;
+}
+
+.block-editor li {
+  margin: 0.25em 0;
+}
+
+.block-editor li > p {
+  margin: 0;
+}
+
+/* Task List */
+.block-editor ul.task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.block-editor li.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+
+.block-editor li.task-item > label {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.block-editor li.task-item > label input[type='checkbox'] {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.block-editor li.task-item > div {
+  flex: 1;
+}
+
+.block-editor li.task-item[data-checked='true'] > div {
+  text-decoration: line-through;
+  color: var(--text-muted, #999);
+}
+
+/* ==================== */
+/* Code Blocks          */
+/* ==================== */
+
+.block-editor pre {
+  background: var(--bg-code-block, #1e1e1e);
+  color: var(--text-code-block, #d4d4d4);
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1em 0;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New',
+    monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.block-editor pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ==================== */
+/* Blockquote           */
+/* ==================== */
+
+.block-editor blockquote {
+  border-left: 3px solid var(--border-accent, #3b82f6);
+  padding-left: 1em;
+  margin: 1em 0;
+  color: var(--text-secondary, #666);
+  font-style: italic;
+}
+
+/* ==================== */
+/* Horizontal Rule      */
+/* ==================== */
+
+.block-editor hr {
+  border: none;
+  border-top: 2px solid var(--border-light, #e5e5e5);
+  margin: 2em 0;
+}
+
+/* ==================== */
+/* Links                */
+/* ==================== */
+
+.block-editor a {
+  color: var(--link-color, #3b82f6);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.block-editor a:hover {
+  color: var(--link-hover, #2563eb);
+}
+
+/* Wiki Links */
+.block-editor .wiki-link {
+  color: var(--wiki-link-color, #7c3aed);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--wiki-link-color, #7c3aed);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.block-editor .wiki-link:hover {
+  background: var(--wiki-link-hover-bg, #f3f4f6);
+  border-bottom-style: solid;
+}
+
+.block-editor .wiki-link-missing {
+  color: var(--wiki-link-missing, #ef4444);
+  border-bottom-color: var(--wiki-link-missing, #ef4444);
+}
+
+.block-editor .wiki-link-pending {
+  background: var(--wiki-link-pending-bg, #fef3c7);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* Tags */
+.block-editor .tag {
+  color: var(--tag-color, #10b981);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.block-editor .tag:hover {
+  background: var(--tag-hover-bg, #f0fdf4);
+  border-radius: 3px;
+  padding: 0 3px;
+}
+
+.block-editor .tag-pending {
+  background: var(--tag-pending-bg, #dbeafe);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* ==================== */
+/* Toolbar              */
+/* ==================== */
+
+.editor-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--bg-secondary, #f9fafb);
+  border-bottom: 1px solid var(--border-light, #e5e5e5);
+  flex-wrap: wrap;
+}
+
+.toolbar-group {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0 0.5rem;
+  border-right: 1px solid var(--border-light, #e5e5e5);
+}
+
+.toolbar-group:last-child {
+  border-right: none;
+}
+
+.toolbar-button {
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-primary, #1a1a1a);
+  transition: all 0.2s;
+}
+
+.toolbar-button:hover:not(:disabled) {
+  background: var(--bg-hover, #e5e7eb);
+}
+
+.toolbar-button.active {
+  background: var(--bg-active, #3b82f6);
+  color: white;
+}
+
+.toolbar-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ==================== */
+/* Bubble Menu          */
+/* ==================== */
+
+.bubble-menu {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  background: var(--bg-primary, white);
+  border: 1px solid var(--border-light, #e5e5e5);
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bubble-menu button {
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.bubble-menu button:hover {
+  background: var(--bg-hover, #e5e7eb);
+}
+
+.bubble-menu button.active {
+  background: var(--bg-active, #3b82f6);
+  color: white;
+}
+
+/* ==================== */
+/* Slash Command Menu   */
+/* ==================== */
+
+.slash-command-menu {
+  background: var(--bg-primary, white);
+  border: 1px solid var(--border-light, #e5e5e5);
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.slash-command-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.slash-command-item:hover {
+  background: var(--bg-hover, #e5e7eb);
+}
+
+.command-icon {
+  font-size: 16px;
+  font-weight: 600;
+  width: 24px;
+  text-align: center;
+}
+
+.command-label {
+  font-size: 14px;
+}
+
+/* ==================== */
+/* Focus & Selection    */
+/* ==================== */
+
+.block-editor .ProseMirror-focused {
+  outline: none;
+}
+
+.block-editor .ProseMirror ::selection {
+  background: var(--selection-bg, #bfdbfe);
+}
+
+/* ==================== */
+/* Dark Mode            */
+/* ==================== */
+
+@media (prefers-color-scheme: dark) {
+  .block-editor {
+    --text-primary: #e5e5e5;
+    --text-secondary: #a3a3a3;
+    --text-muted: #737373;
+    --text-code: #fb7185;
+    --text-code-block: #d4d4d4;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #262626;
+    --bg-hover: #404040;
+    --bg-active: #3b82f6;
+    --bg-code: #262626;
+    --bg-code-block: #0a0a0a;
+    --border-light: #404040;
+    --border-accent: #3b82f6;
+    --link-color: #60a5fa;
+    --link-hover: #93c5fd;
+    --wiki-link-color: #a78bfa;
+    --wiki-link-hover-bg: #2d2d2d;
+    --wiki-link-missing: #f87171;
+    --wiki-link-pending-bg: #422006;
+    --tag-color: #34d399;
+    --tag-hover-bg: #1a3e2e;
+    --tag-pending-bg: #1e3a8a;
+    --selection-bg: #1e40af;
+  }
+}
+
+/* ==================== */
+/* Responsive           */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .block-editor {
+    font-size: 15px;
+    padding: 0.75rem;
+  }
+
+  .editor-toolbar {
+    padding: 0.25rem;
+    gap: 0.25rem;
+  }
+
+  .toolbar-button {
+    padding: 0.4rem 0.6rem;
+    font-size: 13px;
+  }
+}
