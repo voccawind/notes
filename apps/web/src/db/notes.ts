@@ -144,6 +144,33 @@ export async function getDailyNote(orbitId: UUID, date: Date): Promise<Note | un
 // Search
 // ====================
 
+/**
+ * Find note by exact title, or create if it doesn't exist
+ * Used for WikiLink navigation
+ */
+export async function findOrCreateNoteByTitle(
+  orbitId: UUID,
+  title: string
+): Promise<Note> {
+  // Search for existing note with this title
+  const existing = await db.notes
+    .where('orbitId')
+    .equals(orbitId)
+    .and((note) => note.title.toLowerCase() === title.toLowerCase() && !note.deletedAt)
+    .first()
+
+  if (existing) {
+    return existing
+  }
+
+  // Create new note if not found
+  return createNote({
+    orbitId,
+    title,
+    content: '',
+  })
+}
+
 export async function searchNotes(orbitId: UUID, query: string): Promise<Note[]> {
   const lowerQuery = query.toLowerCase()
 

@@ -4,6 +4,7 @@ import { OrbitBar } from './OrbitBar'
 import { Canvas } from './Canvas'
 import { FocusRail } from './FocusRail'
 import { CommandDock } from './CommandDock'
+import { findOrCreateNoteByTitle } from '../db'
 import type { UUID } from '@orbit/shared-types'
 import './layout.css'
 
@@ -64,6 +65,33 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
     setActiveNoteId(noteId)
   }
 
+  // Handle WikiLink click: Find or create note and open it
+  const handleWikiLinkClick = async (title: string) => {
+    if (!activeOrbitId) return
+
+    try {
+      const note = await findOrCreateNoteByTitle(activeOrbitId, title)
+      handleNoteOpen(note.id)
+
+      // Call parent handler if provided
+      if (onWikiLinkClick) {
+        onWikiLinkClick(title)
+      }
+    } catch (error) {
+      console.error('Failed to open wiki link:', error)
+    }
+  }
+
+  // Handle Tag click
+  const handleTagClick = (tag: string) => {
+    // TODO: Implement tag filtering/search
+    console.log('Tag clicked:', tag)
+
+    if (onTagClick) {
+      onTagClick(tag)
+    }
+  }
+
   return (
     <div className="workspace-layout">
       {/* OrbitBar - Left Sidebar */}
@@ -90,8 +118,8 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
             openTabs={openTabs}
             onTabClose={handleTabClose}
             onTabSwitch={handleTabSwitch}
-            onWikiLinkClick={onWikiLinkClick}
-            onTagClick={onTagClick}
+            onWikiLinkClick={handleWikiLinkClick}
+            onTagClick={handleTagClick}
           />
         </main>
 
